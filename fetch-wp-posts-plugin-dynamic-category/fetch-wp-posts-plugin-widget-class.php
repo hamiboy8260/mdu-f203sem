@@ -21,8 +21,8 @@ class Fetch_WP_Posts_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		if ( ! empty( $instance['title'] ) ) {
-			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
+		if ( ! empty( $instance['category'] ) ) {
+			echo '<input type="hidden" id="wp-posts-category-id" name="categoryId" value="' . $instance['category'] . '">';
 		}
 		echo '<div id="wp-posts"></div>';
 		echo $args['after_widget'];
@@ -33,11 +33,11 @@ class Fetch_WP_Posts_Widget extends WP_Widget {
 	 * form() – determines widget settings in the WordPress dashboard.
 	 */
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'New title', 'fwppw_domain' );
+		$category = ! empty( $instance['category'] ) ? $instance['category'] : esc_html__( 'Category ID', 'fwppw_domain' );
 		?>
 		<p>
-		<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_attr_e( 'Title:', 'fwppw_domain' ); ?></label> 
-		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
+		<label for="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>"><?php esc_attr_e( 'Category ID:', 'fwppw_domain' ); ?></label> 
+		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'category' ) ); ?>" type="text" value="<?php echo esc_attr( $category ); ?>">
 		</p>
 		<?php 
 	}
@@ -48,7 +48,7 @@ class Fetch_WP_Posts_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';
+		$instance['category'] = ( ! empty( $new_instance['category'] ) ) ? sanitize_text_field( $new_instance['category'] ) : '';
 
 		return $instance;
 	}

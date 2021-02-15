@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   initScrollToTop();
-  initTypedJs();
-  fetchWPPosts();
+
+  if(document.querySelector(".typed-headline")){
+    initTypedJs();
+  }
+  if(document.querySelector("#posts")){
+    fetchWPPosts();
+  }
 });
 
 // ---------- smooth scroll ---------- //
@@ -32,14 +37,11 @@ function scrollToTheTop() {
 
 // ---------- typed.js ---------- //
 function initTypedJs() {
-  console.log(document.querySelector(".typed-headline"));
-  if(document.querySelector(".typed-headline")){
     new Typed(".typed-headline", {
         strings: ["Rasmus Cederdorff.", "a Freelancer.", "a Lecturer.", "a Web Developer.", "an App Developer.", "a Web Architect.", "a Teacher."],
         typeSpeed: 75,
         loop: true,
     });
-  }
 };
 
 // ---------- fetch wp posts ---------- //
